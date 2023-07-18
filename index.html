@@ -1,162 +1,126 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Xpert</title>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
+<title>Victor Preston | Projects</title>
+<link href="https://fonts.googleapis.com/css?family=Overpass:100,400,600,700" rel="stylesheet">
+<!-- Favicon -->
+<link rel="icon" href="https://avatars.githubusercontent.com/u/112781610?v=4" type="image/x-icon" />
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<link href="package/assets/css/foundation.css" rel="stylesheet" />
+<link href="package/assets/css/font-awesome.min.css" rel="stylesheet" />
+<link href="package/assets/css/showoff.css" rel="stylesheet" />
+<!-- Core theme CSS -->
+<link rel="stylesheet" href="style.css">
 
-    pre {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 14px;
-      line-height: 1.4;
-      margin: 0;
-      padding: 10px;
-      white-space: pre-wrap;
-    }
 
-    .code-block {
-      background-color:black;
-      border-radius: 5px;
-      border: 1px solid #726f6f;
-      margin-bottom: 20px;
-    }
-
-    .code-block pre {
-      margin: 0;
-    }
-
-  </style>
 </head>
 <body>
-  <div class="code-block">
-    <pre id="skills"></pre>
-  </div>
-  <div class="code-block">
-    <pre id="projects"></pre>
-  </div>
+<div class = "row">
+	<div class = "columns medium-10 medium-centered">
+	<div id = "content">
+		<div class="gshowoff" id="gshowoff_wrapper">
+			<header>
+				<div class = "user_bio">
+				<span class="avatar"></span>
+				<span class="name"></span>
+				</div>
+				<div class="user_links">
+					<ul>
+						<li><a target="_blank" href="https://twitter.com/vpreston254"><i class="fa fa-twitter"></i></a></li> 
+						<li><a target="_blank" href="https://www.linkedin.com/in/victor-preston-273054253/"><i class="fa fa-globe"></i></a></li> 
+					</ul>
+				</div>
+			</header>
+			<ul></ul>
+			<footer>
+				<a target="_blank" href="https://github.com/victorpreston" id = "profile_link" class="coffee button">
+                            <div class="bg"></div>
+                            <div class="content">Visit profile</div> <i class="icon fa fa-github"></i></a>
+			</footer>
+		</div>
+	</div>
+	</div>
+</div>
+<!-- Parallax Pixel Background Animation -->
+ <section class="animated-background">
+    <div id="stars1"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+ </section>
+<!-- End of Parallax Pixel Background Animation -->
+<script type="text/javascript">
+	function header(data){
+		var user_data= data.data
+		var name = user_data["name"]
+		var bio = user_data["bio"]
+		var avatar_url = user_data['avatar_url']
+		var html_url = user_data["html_url"]
 
-  <script>
-    // Function to simulate the typing effect
-    function typeEffect(element, text, delay) {
-      let index = 0;
-      const typing = setInterval(() => {
-        element.innerHTML += text.charAt(index);
-        index++;
-        if (index >= text.length) {
-          clearInterval(typing);
-        }
-      }, delay);
-    }
+		var avatar_elem = document.querySelector('.gshowoff header .avatar')
+		var name_elem = document.querySelector('.gshowoff header .name')
+		var profile_elem = document.getElementById('profile_link')
 
-    // Execute the code to showcase skills and perform actions
-    class CybersecurityXpert {
-      constructor() {
-        this.name = "Victor Preston";
-        this.role = "Cybersecurity Engineer";
-        this.languages_spoken = ["en_US", "es_ES"];
-        this.certifications = [
-          { "name": "Ethical Hacking Essentials (EHE)", "year": 2023 },
-          { "name": "Cisco Certified Cybersecurity Support Technician (CCST)", "year": 2023 },
-        ];
-        this.skillset = {
-          "Secure Software Development": ["Secure SDLC", "Threat Modeling", "Code Review"],
-          "Threat Mitigation": ["Intrusion Detection/Prevention", "Vulnerability Assessment", "Incident Response"],
-          "Cryptography": ["Encryption Algorithms", "Key Management", "Digital Signatures"]
-        };
-        this.github_profile = "victorpreston";
-        this.projects = [
-          { "name": "Advanced Spyware", "description": "Developed an advanced keylogger" },
-          { "name": "Network Hardening", "description": "Performed network hardening to enhance security posture" },
-          { "name": "Hash Generator", "description": "Developed a hashing generator" }
-        ];
-      }
+		avatar_elem.style.backgroundImage = "url('"+ avatar_url +"')"
+		name_elem.innerHTML = name
+		profile_elem.href = html_url
 
-      show_skills() {
-        let skillsContent = "";
-        skillsContent += `Name: ${this.name}\n`;
-        skillsContent += `Role: ${this.role}\n`;
-        skillsContent += `Languages Spoken: ${this.languages_spoken.join(", ")}\n`;
-        skillsContent += "Certifications:\n";
-        for (const certification of this.certifications) {
-          skillsContent += `- ${certification.name} (Year: ${certification.year})\n`;
-        }
-        skillsContent += "Skills:\n";
-        for (const category in this.skillset) {
-          skillsContent += `- ${category}:\n`;
-          for (const skill of this.skillset[category]) {
-            skillsContent += `  - ${skill}\n`;
-          }
-        }
-        skillsContent += `GitHub: ${this.github_profile}\n`;
+		
+	}
+	function list(data) {
+		var reposList = document.getElementById('gshowoff_wrapper');
+		var output = ""
+		var repos = data.data
+		for (var key in repos) {
+			var current_repo = repos[key]
+			var url = current_repo["html_url"]
+			var title = current_repo["name"]
+			var description = current_repo["description"]
+			var language = current_repo["language"]
+			var stars = current_repo["stargazers_count"]
+			var watchers = current_repo["watchers"]
+			var is_fork = current_repo["fork"]
+			var forks = current_repo["forks"]
+			var classes = ""
 
-        return skillsContent;
-      }
+			if ( stars > 15 ) {
+				classes += "top "
+			}
 
-      show_projects() {
-        let projectsContent = "Projects:\n";
-        for (const project of this.projects) {
-          projectsContent += `- ${project.name}: ${project.description}\n`;
-        }
-        return projectsContent;
-      }
+			output += '<li class="'+ classes +'"><a target="__blank" href="'+ url +'"><div class="repo_content">'
+			if ( is_fork == true ) {
+				output += '<i class="fa fa-code-fork fork_repo"></i>'
+			}
+			output += '<h3>'+ title +'</h3>'
+			if ( language !== null || stars !== 0 || watchers !== 0  ) { 
+				output += '<div class = "repos_info">'
+				if ( language !== null ) { 
+					output += '<span class = "language">'+ language +'</span>'
+				}
 
-      perform_penetration_testing(target) {
-        console.log(`Performing penetration testing on ${target}...`);
-      }
+				if ( stars !== 0 ) {
+					output += '<span><i class="fa fa-star"></i>' + stars + '</span>'
+				}
 
-      analyze_malware(malware_sample) {
-        console.log(`Analyzing malware sample: ${malware_sample}...`);
-      }
+				if ( watchers !== 0 ) {
+					output += '<span><i class="fa fa-eye"></i>' + watchers + '</span>'
+				}
+				if ( forks !== 0 ) {
+					output += '<span><i class="fa fa-code-fork"></i>' + forks + '</span>'
+				}
+				output += '</div>'
+			}
+			if ( description !== null ) { 
+				output += '<p>'+ description +'</p>'
+			}
 
-      design_secure_architecture(system) {
-        console.log(`Designing secure architecture for ${system}...`);
-      }
+			output += '</div><i class="fa fa-long-arrow-right arrow"></i></a></li>'
+		}
+		document.querySelector('.gshowoff > ul').innerHTML = output
+		
+	}
+</script>
 
-      exploit_vulnerabilities(target) {
-        console.log(`Exploiting vulnerabilities on ${target}...`);
-      }
-    }
-
-    const me = new CybersecurityXpert();
-    const skillsContent = me.show_skills();
-    const projectsContent = me.show_projects();
-    const skillsLines = skillsContent.split("\n");
-    const projectsLines = projectsContent.split("\n");
-    const skillsElement = document.getElementById("skills");
-    const projectsElement = document.getElementById("projects");
-
-    let skillsIndex = 0;
-    let projectsIndex = 0;
-
-    function typeSkillsLine() {
-      if (skillsIndex < skillsLines.length) {
-        typeEffect(skillsElement, skillsLines[skillsIndex] + "\n", 15);
-        skillsIndex++;
-        setTimeout(typeSkillsLine, skillsLines[skillsIndex - 1].length * 15 + 500);
-      } else {
-        setTimeout(typeProjectsLine, 1000);
-      }
-    }
-
-    function typeProjectsLine() {
-      if (projectsIndex < projectsLines.length) {
-        typeEffect(projectsElement, projectsLines[projectsIndex] + "\n", 15);
-        projectsIndex++;
-        setTimeout(typeProjectsLine, projectsLines[projectsIndex - 1].length * 15 + 500);
-      }
-    }
-
-    typeSkillsLine();
-
-    me.perform_penetration_testing("example.com");
-    me.analyze_malware("sample.exe");
-    me.design_secure_architecture("enterprise network");
-    me.exploit_vulnerabilities("enterprise system");
-  </script>
+<script src="https://api.github.com/users/victorpreston/repos?callback=list" type="text/javascript"></script> 
+<script src="https://api.github.com/users/victorpreston?callback=header" type="text/javascript"></script>
 </body>
 </html>
