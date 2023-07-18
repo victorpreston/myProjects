@@ -66,58 +66,62 @@
 
 		
 	}
-	function list(data) {
-		var reposList = document.getElementById('gshowoff_wrapper');
-		var output = ""
-		var repos = data.data
-		for (var key in repos) {
-			var current_repo = repos[key]
-			var url = current_repo["html_url"]
-			var title = current_repo["name"]
-			var description = current_repo["description"]
-			var language = current_repo["language"]
-			var stars = current_repo["stargazers_count"]
-			var watchers = current_repo["watchers"]
-			var is_fork = current_repo["fork"]
-			var forks = current_repo["forks"]
-			var classes = ""
+	    function list(data) {
+        var reposList = document.getElementById('gshowoff_wrapper');
+        var output = "";
+        var repos = data.data;
 
-			if ( stars > 15 ) {
-				classes += "top "
-			}
+        var desiredRepos = ["Python-CodeNest","Diabetes-Care-Connect", "HackLab", "PhoneTracker","Packet-Sniffer"];
 
-			output += '<li class="'+ classes +'"><a target="__blank" href="'+ url +'"><div class="repo_content">'
-			if ( is_fork == true ) {
-				output += '<i class="fa fa-code-fork fork_repo"></i>'
-			}
-			output += '<h3>'+ title +'</h3>'
-			if ( language !== null || stars !== 0 || watchers !== 0  ) { 
-				output += '<div class = "repos_info">'
-				if ( language !== null ) { 
-					output += '<span class = "language">'+ language +'</span>'
-				}
+        for (var key in repos) {
+          var current_repo = repos[key];
+          var title = current_repo["name"];
 
-				if ( stars !== 0 ) {
-					output += '<span><i class="fa fa-star"></i>' + stars + '</span>'
-				}
+          if (desiredRepos.includes(title)) {
+            var url = current_repo["html_url"];
+            var description = current_repo["description"];
+            var language = current_repo["language"];
+            var stars = current_repo["stargazers_count"];
+            var watchers = current_repo["watchers"];
+            var is_fork = current_repo["fork"];
+            var forks = current_repo["forks"];
+            var classes = "";
 
-				if ( watchers !== 0 ) {
-					output += '<span><i class="fa fa-eye"></i>' + watchers + '</span>'
-				}
-				if ( forks !== 0 ) {
-					output += '<span><i class="fa fa-code-fork"></i>' + forks + '</span>'
-				}
-				output += '</div>'
-			}
-			if ( description !== null ) { 
-				output += '<p>'+ description +'</p>'
-			}
+            if (stars > 15) {
+              classes += "top ";
+            }
 
-			output += '</div><i class="fa fa-long-arrow-right arrow"></i></a></li>'
-		}
-		document.querySelector('.gshowoff > ul').innerHTML = output
-		
-	}
+            output += '<li class="' + classes + '"><a target="__blank" href="' + url + '"><div class="repo_content">';
+            if (is_fork == true) {
+              output += '<i class="fa fa-code-fork fork_repo"></i>';
+            }
+            output += '<h3>' + title + '</h3>';
+            if (language !== null || stars !== 0 || watchers !== 0) {
+              output += '<div class="repos_info">';
+              if (language !== null) {
+                output += '<span class="language">' + language + '</span>';
+              }
+
+              if (stars !== 0) {
+                output += '<span><i class="fa fa-star"></i>' + stars + '</span>';
+              }
+              if (watchers !== 0) {
+                output += '<span><i class="fa fa-eye"></i>' + watchers + '</span>';
+              }
+              if (forks !== 0) {
+                output += '<span><i class="fa fa-code-fork"></i>' + forks + '</span>';
+              }
+              output += '</div>';
+            }
+            if (description !== null) {
+              output += '<p>' + description + '</p>';
+            }
+
+            output += '</div><i class="fa fa-long-arrow-right arrow"></i></a></li>';
+          }
+        }
+        document.querySelector('.gshowoff > ul').innerHTML = output;
+      }
 </script>
 
 <script src="https://api.github.com/users/victorpreston/repos?callback=list" type="text/javascript"></script> 
